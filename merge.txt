@@ -1,0 +1,77 @@
+create database happy;
+Commands completed successfully.
+
+Completion time: 2020-11-04T16:32:37.8938386+05:30
+use happy;
+Commands completed successfully.
+
+Completion time: 2020-11-04T16:34:29.5198815+05:30
+drop database emp1;
+Commands completed successfully.
+Completion time: 2020-11-04T16:35:35.4782654+05:30
+
+
+create table employeeSource(
+eid numeric(10),
+ename char(20),
+esalary numeric(10),
+eage numeric(10),
+egender char(10),
+edept char(10));
+
+
+insert into employeeSource values(
+1,'sam',93000,40,'male','operations');
+insert into employeeSource values(
+2,'bob',80000,21,'male','support');
+insert into employeeSource values(
+3,'anne',130000,25,'female','analytics');
+insert into employeeSource values(
+6,'jeff',85000,27,'male','operations');
+insert into employeeSource values(
+7,'adam',100000,28,'male','content');
+insert into employeeSource values(
+8,'priya',85000,37,'female','tech');
+select * from employeeSource;
+
+
+create table employeeTarget(
+eid numeric(10),
+ename char(20),
+esalary numeric(10),
+eage numeric(10),
+egender char(10),
+edept char(10));
+
+insert into employeeTarget values(
+1,'sam',95000,45,'male','operations');
+insert into employeeTarget values(
+2,'bob',80000,21,'male','support');
+insert into employeeTarget values(
+3,'anne',125000,25,'female','analytics');
+insert into employeeTarget values(
+4,'juli',73000,30,'female','analytics');
+insert into employeeTarget values(
+5,'matt',159000,33,'male','sales');
+insert into employeeTarget values(
+6,'jeff',73000,27,'male','operations');
+
+
+
+merge employeetarget as t
+using employeeSource as s
+on t.eid=s.eid
+when matched 
+then update set t.esalary=s.esalary,t.eage=s.eage
+when not matched by target 
+then insert (eid,ename,esalary,eage,egender,edept)
+values(s.eid,s.ename,s.esalary,s.eage,s.egender,s.edept)
+when not matched by source
+then  delete;
+select * from employeetarget;
+
+
+
+
+
+
